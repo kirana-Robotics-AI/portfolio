@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirana A P — Robotics & AI Engineer</title>
+<meta name="description" content="Portfolio of Kirana A P — Robotics & AI Engineer. Projects in robotics, AI, DevOps, networking, and data analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a1420;
+    --surface: #0f1d2e;
+    --surface-2: #142839;
+    --line: #1e3348;
+    --grid: rgba(143,177,212,0.07);
+    --text: #eaf0f6;
+    --text-dim: #8ca0b3;
+    --text-faint: #566577;
+    --accent: #ff6a39;
+    --accent-dim: #b84e29;
+    --cyan: #52d6c9;
+    --radius: 4px;
+    --display: 'Space Grotesk', sans-serif;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent); color:var(--bg); }
+  a{ color:var(--cyan); text-decoration:none; }
+  a:hover{ color:var(--accent); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,20,32,.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:1120px; margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:600; font-size:14px;
+    display:flex; align-items:center; gap:8px; color:var(--text);
+  }
+  .logo .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); }
+  .navlinks{ display:flex; gap:28px; font-family:var(--mono); font-size:13px; }
+  .navlinks a{ color:var(--text-dim); }
+  .navlinks a:hover{ color:var(--accent); }
+  .status{
+    display:flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:11px; color:var(--cyan);
+  }
+  .status .pulse{
+    width:6px; height:6px; border-radius:50%; background:var(--cyan);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  @media (max-width:760px){ .navlinks{ display:none; } }
+
+  #hero{ position:relative; padding:90px 32px 80px; border-bottom:1px solid var(--line); }
+  .hero-frame{ max-width:1120px; margin:0 auto; position:relative; padding:36px; }
+  .crop{ position:absolute; width:22px; height:22px; border:1px solid var(--accent-dim); }
+  .crop.tl{ top:0; left:0; border-right:none; border-bottom:none; }
+  .crop.tr{ top:0; right:0; border-left:none; border-bottom:none; }
+  .crop.bl{ bottom:0; left:0; border-right:none; border-top:none; }
+  .crop.br{ bottom:0; right:0; border-left:none; border-top:none; }
+
+  .rev{ font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.05em; margin-bottom:22px; }
+  .rev span{ color:var(--accent); }
+
+  .hero-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:52px; align-items:start; }
+  @media (max-width:820px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  h1.hero-name{ font-family:var(--display); font-weight:700; font-size:clamp(34px,5vw,54px); line-height:1.08; letter-spacing:-0.01em; }
+  .hero-role{ font-size:19px; color:var(--text-dim); margin-top:16px; max-width:46ch; }
+  .hero-role .hl{ color:var(--text); font-weight:500; }
+
+  .domain-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+  .domain-chip{ font-family:var(--mono); font-size:11px; color:var(--text-dim); border:1px solid var(--line); padding:5px 10px; border-radius:var(--radius); }
+
+  .hero-links{ margin-top:28px; display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:13px; }
+  .hero-links a{ color:var(--text-dim); border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .hero-links a:hover{ color:var(--accent); border-color:var(--accent-dim); }
+
+  .telemetry{ background:var(--surface); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .telemetry-head{ display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid var(--line); background:var(--surface-2); font-family:var(--mono); font-size:11px; color:var(--text-faint); }
+  .telemetry-body{ padding:16px; font-family:var(--mono); font-size:12.5px; }
+  .tele-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--line); }
+  .tele-row:last-child{ border-bottom:none; }
+  .tele-label{ color:var(--text-faint); }
+  .tele-val{ color:var(--cyan); }
+  .tele-val.warn{ color:var(--accent); }
+
+  section{ padding:88px 0; border-bottom:1px solid var(--line); }
+  section:last-child{ border-bottom:none; }
+  .eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--accent); text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .eyebrow::before{ content:''; width:16px; height:1px; background:var(--accent-dim); }
+  h2.section-title{ font-family:var(--display); font-size:28px; font-weight:700; margin-bottom:44px; }
+
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:56px; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-text p{ color:var(--text-dim); margin-bottom:16px; max-width:62ch; }
+  .about-text .hl{ color:var(--text); }
+
+  .datasheet{ font-family:var(--mono); font-size:12.5px; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .datasheet-head{ padding:10px 14px; background:var(--surface-2); border-bottom:1px solid var(--line); color:var(--text-faint); }
+  .datasheet-row{ display:flex; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--line); }
+  .datasheet-row:last-child{ border-bottom:none; }
+  .datasheet-row span:first-child{ color:var(--text-dim); }
+  .datasheet-row span:last-child{ color:var(--text); text-align:right; }
+
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+  .filter-btn{ font-family:var(--mono); font-size:12px; color:var(--text-dim); background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:8px 14px; cursor:pointer; transition:all .15s; }
+  .filter-btn:hover{ color:var(--text); border-color:var(--text-faint); }
+  .filter-btn.active{ color:var(--accent); border-color:var(--accent-dim); background:rgba(255,106,57,.08); }
+
+  .project-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  @media (max-width:760px){ .project-grid{ grid-template-columns:1fr; } }
+
+  .card{ background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:24px; display:flex; flex-direction:column; transition:border-color .15s; }
+  .card:hover{ border-color:var(--accent-dim); }
+  .card.hidden{ display:none; }
+
+  .card-video{
+    width:100%; border-radius:4px; overflow:hidden; margin-bottom:16px;
+    background:#000; border:1px solid var(--line); position:relative;
+  }
+  .card-video video{ width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
+
+  .card-domain{ font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cyan); margin-bottom:10px; }
+  .card-title{ font-family:var(--display); font-size:18px; font-weight:600; margin-bottom:10px; color:var(--text); }
+  .card-title a{ color:inherit; }
+  .card-title a:hover{ color:var(--accent); }
+  .card-desc{ color:var(--text-dim); font-size:14px; margin-bottom:16px; flex:1; }
+  .tags{ display:flex; gap:7px; flex-wrap:wrap; margin-bottom:16px; }
+  .tag{ font-family:var(--mono); font-size:10.5px; color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line); padding:3px 8px; border-radius:var(--radius); }
+  .card-links{ display:flex; gap:16px; font-family:var(--mono); font-size:12px; }
+
+  .skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:820px){ .skills-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skill-card{ border:1px solid var(--line); border-radius:6px; padding:20px; background:var(--surface); }
+  .skill-card h3{ font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+  .skill-card ul{ list-style:none; }
+  .skill-card li{ font-size:13.5px; color:var(--text-dim); padding:5px 0; border-top:1px solid var(--line); }
+  .skill-card li:first-child{ border-top:none; }
+
+  #contact{ padding-bottom:100px; }
+  .contact-row{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
+  .contact-headline{ font-family:var(--display); font-size:clamp(24px,4vw,36px); font-weight:700; max-width:18ch; }
+  .contact-links{ display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+  @media (max-width:640px){ .contact-links{ align-items:flex-start; } }
+  .contact-links a{ font-family:var(--mono); font-size:14px; color:var(--text-dim); }
+  .contact-links a:hover{ color:var(--accent); }
+
+  footer{ padding:24px 32px; font-family:var(--mono); font-size:11px; color:var(--text-faint); text-align:center; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .pulse{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><span class="dot"></span>kirana_ap</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+    <div class="status"><span class="pulse"></span>open to work</div>
+  </div>
+</header>
+
+<main>
+
+  <section id="hero">
+    <div class="hero-frame">
+      <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+      <div class="rev">DOC-001 · REV <span>A</span> · CLASS: PORTFOLIO</div>
+      <div class="hero-grid">
+        <div>
+          <h1 class="hero-name">Kirana A P</h1>
+          <p class="hero-role">Recent <span class="hl">Robotics & AI Engineering</span> graduate building systems that span <span class="hl">hardware, AI, and infrastructure</span> — from six-legged robots to the pipelines that ship them.</p>
+          <div class="domain-row">
+            <span class="domain-chip">Robotics</span>
+            <span class="domain-chip">AI / Computer Vision</span>
+            <span class="domain-chip">DevOps</span>
+            <span class="domain-chip">Networking</span>
+            <span class="domain-chip">Data Analysis</span>
+          </div>
+          <div class="hero-links">
+            <a href="#projects">View projects →</a>
+            <a href="https://github.com/kirana-Robotics-AI" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/kirana-a-p" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="resume.pdf" target="_blank" rel="noopener">Resume ↓</a>
+          </div>
+        </div>
+        <div class="telemetry">
+          <div class="telemetry-head"><span>TELEMETRY</span><span>LIVE</span></div>
+          <div class="telemetry-body">
+            <div class="tele-row"><span class="tele-label">ROLE</span><span class="tele-val">ROBOTICS &amp; AI ENGINEER</span></div>
+            <div class="tele-row"><span class="tele-label">DOMAINS</span><span class="tele-val">5 ACTIVE</span></div>
+            <div class="tele-row"><span class="tele-label">PROJECTS SHIPPED</span><span class="tele-val">6</span></div>
+            <div class="tele-row"><span class="tele-label">LOCATION</span><span class="tele-val">Bangalore, India</span></div>
+            <div class="tele-row"><span class="tele-label">STATUS</span><span class="tele-val warn">SEEKING ROLE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="eyebrow">About</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a recently graduated <span class="hl">Robotics & AI Engineer</span> based in Bangalore who likes building systems end-to-end — from embedded hardware and sensor fusion up through the AI models and infrastructure that support them.</p>
+        <p>My projects range from a six-legged hexapod robot with AI-assisted perception to an underwater exploration drone, a natural-language-to-SQL analytics platform, and containerized backend services with CI/CD pipelines. I've also worked hands-on with enterprise network design using VLANs and routing.</p>
+        <p>I'm currently looking for roles in <span class="hl">robotics, AI/ML, DevOps, or networking</span> — happy to talk about any of them.</p>
+      </div>
+      <div class="datasheet">
+        <div class="datasheet-head">SPEC — QUICK FACTS</div>
+        <div class="datasheet-row"><span>Degree</span><span>B.E, Robotics & AI</span></div>
+        <div class="datasheet-row"><span>Location</span><span>Bangalore, India</span></div>
+        <div class="datasheet-row"><span>Graduated</span><span>2026</span></div>
+        <div class="datasheet-row"><span>Core stack</span><span>Python · C/C++ · ROS</span></div>
+        <div class="datasheet-row"><span>Also</span><span>Docker · Jenkin · SQL</span></div>
+        <div class="datasheet-row"><span>Looking for</span><span>Robotics / AI / DevOps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="eyebrow">Projects</div>
+    <h2 class="section-title">Selected work</h2>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="robotics">Robotics</button>
+      <button class="filter-btn" data-filter="devops">DevOps</button>
+      <button class="filter-btn" data-filter="network">Networking</button>
+      <button class="filter-btn" data-filter="data">Data / AI</button>
+    </div>
+
+    <div class="project-grid" id="grid">
+
+      <article class="card" data-domain="robotics">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/hexapod-poster.jpg">
+            <source src="projects/hexapod.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/hexapod.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">Robotics · AI</div>
+        <h3 class="card-title"><a href="https://github.com/kirana-Robotics-AI/Intelligent-Hexapod-Robot.git" target="_blank" rel="noopener">Intelligent Hexapod Robot with AI-Assisted Perception</a></h3>
+        <p class="card-desc">A six-legged robot for rescue and hazardous-environment monitoring — remote inspection of gas-leak zones and collapsed structures without direct human exposure. Runs 18-servo tripod gait locomotion across uneven terrain, fuses 4 sensing modalities (IMU, ToF distance, gas, vision), and generates AI natural-language summaries over Wi-Fi for faster operator decisions.</p>
+        <div class="tags"><span class="tag">ESP32</span><span class="tag">OpenCV</span><span class="tag">YOLOv5</span><span class="tag">Python</span></div>
+        <div class="card-links"><a href="https://github.com/kirana-Robotics-AI/Intelligent-Hexapod-Robot.git" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+
+      <article class="card" data-domain="robotics">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/line-follow-poster.jpg">
+            <source src="projects/line-follow.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/line-follow.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">Robotics</div>
+        <h3 class="card-title"><a href="https://github.com/kirana-Robotics-AI/Grid-Line-following-Robot.git" target="_blank" rel="noopener">Grid-Based Line Following Robot</a></h3>
+        <p class="card-desc">An autonomous robot that follows predefined grid paths, detects intersections, stops at each node for 15 seconds, reverses, and moves on automatically. Achieved fully autonomous traversal of 12 grid locations with intersection detection and timed-stop logic — no manual control needed.</p>
+        <div class="tags"><span class="tag">Arduino Uno</span><span class="tag">C/C++</span><span class="tag">IR Sensors</span><span class="tag">L298N</span></div>
+        <div class="card-links"><a href="https://github.com/kirana-Robotics-AI/Grid-Line-following-Robot.git" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+
+      <article class="card" data-domain="devops">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/task-api-poster.jpg">
+            <source src="projects/task-api.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/task-api.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">DevOps</div>
+        <h3 class="card-title"><a href="https://github.com/kirana-Robotics-AI/task-manager-api.git" target="_blank" rel="noopener">Task Manager REST API</a></h3>
+        <p class="card-desc">A RESTful backend for creating, viewing, updating, and deleting tasks — built with full CRUD functionality across 5 endpoints, containerized with Docker for consistent deployment, and structured for automated CI/CD with GitHub Actions and Jenkins, with Kubernetes orchestration in mind.</p>
+        <div class="tags"><span class="tag">Flask</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Jenkins</span></div>
+        <div class="card-links"><a href="https://github.com/kirana-Robotics-AI/task-manager-api.git" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+
+      <article class="card" data-domain="robotics">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/uw-drone-poster.jpg">
+            <source src="projects/uw-drone.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/uw-drone.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">Robotics</div>
+        <h3 class="card-title"><a href="https://github.com/kirana-Robotics-AI/Underwater-Exploration-Drone.git" target="_blank" rel="noopener">Underwater Exploration Drone</a></h3>
+        <p class="card-desc">A remotely operated underwater vehicle for inspection and exploration in low-visibility environments, with Wi-Fi control, live video streaming, and ballast-based buoyancy. Reached 2.5 m/s forward speed, held 95% communication reliability within a 15 m range, and ran for roughly 90 minutes on a single charge during testing.</p>
+        <div class="tags"><span class="tag">ESP32-CAM</span><span class="tag">C/C++</span><span class="tag">IoT</span><span class="tag">L298N</span></div>
+        <div class="card-links"><a href="https://github.com/kirana-Robotics-AI/Underwater-Exploration-Drone.git" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+
+      <article class="card" data-domain="network">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/network-poster.jpg">
+            <source src="projects/network.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/network.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">Networking</div>
+        <h3 class="card-title">Enterprise Office Network Design (Cisco Packet Tracer)</h3>
+        <p class="card-desc">Designed a segmented enterprise network splitting HR, IT, and Sales into VLANs with secure Inter-VLAN routing via router-on-a-stick, plus DHCP for automatic IP assignment. Connected 3 isolated VLANs end-to-end, automated IP allocation for 6 client devices, and verified connectivity with ping, ARP, and Cisco show commands.</p>
+        <div class="tags"><span class="tag">Cisco Packet Tracer</span><span class="tag">VLANs</span><span class="tag">DHCP</span><span class="tag">ACLs</span></div>
+        <div class="card-links"><span style="color:var(--text-faint)">Repo coming soon</span></div>
+      </article>
+
+      <article class="card" data-domain="data">
+        <div class="card-video">
+          <video controls preload="metadata" poster="projects/nl-sql-poster.jpg">
+            <source src="projects/nl-sql.mp4" type="video/mp4">
+            Your browser doesn't support embedded video. <a href="projects/nl-sql.mp4">Download the video</a>.
+          </video>
+        </div>
+        <div class="card-domain">Data · AI</div>
+        <h3 class="card-title"><a href="https://github.com/kirana-Robotics-AI/AI-Powered-Natural-Language-SQL-Dashboard-SaaS-.git" target="_blank" rel="noopener">AI-Powered Natural Language to SQL Analytics Dashboard</a></h3>
+        <p class="card-desc">An AI analytics platform that lets users query databases in plain English instead of writing SQL, enabling self-service analytics for non-technical users. Cut manual SQL effort by ~90%, dropped dataset onboarding from 15+ minutes to under 2, and sped up report generation by ~70% via automated query generation and interactive visualizations.</p>
+        <div class="tags"><span class="tag">Streamlit</span><span class="tag">GPT-4o API</span><span class="tag">SQLAlchemy</span><span class="tag">Plotly</span></div>
+        <div class="card-links"><a href="https://github.com/kirana-Robotics-AI/AI-Powered-Natural-Language-SQL-Dashboard-SaaS-.git" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="skills" class="wrap">
+    <div class="eyebrow">Skills</div>
+    <h2 class="section-title">Toolbox</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Robotics & Embedded</h3>
+        <ul>
+          <li>ESP32, Arduino</li>
+          <li>Sensor fusion (IMU, ToF, gas)</li>
+          <li>Servo control, gait design</li>
+          <li>Embedded C/C++</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>AI / Computer Vision</h3>
+        <ul>
+          <li>OpenCV, YOLOv5</li>
+          <li>Small language models</li>
+          <li>OpenAI GPT-4o API</li>
+          <li>Python</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>DevOps</h3>
+        <ul>
+          <li>Docker, Kubernetes</li>
+          <li>GitHub Actions, Jenkins</li>
+          <li>Flask, REST APIs</li>
+          <li>Linux administration</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Networking</h3>
+        <ul>
+          <li>VLANs, Inter-VLAN routing</li>
+          <li>Cisco IOS CLI, Packet Tracer</li>
+          <li>DHCP, ACLs</li>
+          <li>IPv4 fundamentals</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Data Analysis</h3>
+        <ul>
+          <li>Pandas, SQL</li>
+          <li>SQLAlchemy, MySQL</li>
+          <li>Plotly, Streamlit</li>
+          <li>Data visualization</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Tools</h3>
+        <ul>
+          <li>Git / GitHub</li>
+          <li>Linux, Bash</li>
+          <li>Arduino IDE</li>
+          <li>VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <div class="eyebrow">Contact</div>
+    <div class="contact-row">
+      <div class="contact-headline">Looking for my next role — let's talk.</div>
+      <div class="contact-links">
+        <a href="mailto:kiranakiru7777@gmail.com">kiranakiru7777@gmail.com</a>
+        <a href="https://github.com/kirana-Robotics-AI" target="_blank" rel="noopener">github.com/kirana-Robotics-AI</a>
+        <a href="https://www.linkedin.com/in/kirana-a-p" target="_blank" rel="noopener">linkedin.com/in/kirana-a-p</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>Kirana A P — built with html, css & js — © 2026</footer>
+
+</main>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.domain === filter;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
