@@ -78,16 +78,52 @@
 
   #hero{ position:relative; padding:90px 32px 80px; border-bottom:1px solid var(--line); }
   .hero-frame{ max-width:1120px; margin:0 auto; position:relative; padding:36px; }
-  .crop{ position:absolute; width:22px; height:22px; border:1px solid var(--accent-dim); }
+
+  /* ---------- animated background layer, fixed across the whole site ---------- */
+  .global-bg{
+    position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+  }
+  .global-bg .circuit{ position:absolute; inset:0; width:100%; height:100%; opacity:.3; }
+  .global-bg .circuit path{
+    fill:none; stroke:var(--line); stroke-width:1.5;
+    stroke-dasharray:6 8; animation:dashFlow 40s linear infinite;
+  }
+  .global-bg .circuit circle{ fill:var(--cyan); opacity:.5; }
+
+  .bg-icon{
+    position:absolute; color:var(--text-faint); opacity:.25;
+    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .bg-icon.cyan{ color:var(--cyan); }
+  .bg-icon.accent{ color:var(--accent); opacity:.35; }
+
+  .bg-icon.robot{ top:8%; right:6%; width:64px; animation:floatY 7s ease-in-out infinite; }
+  .bg-icon.robot-2{ bottom:14%; right:22%; width:46px; animation:floatY 8s ease-in-out infinite 1.2s; }
+  .bg-icon.cloud{ top:14%; left:5%; width:80px; animation:floatY 9s ease-in-out infinite .5s; }
+  .bg-icon.cloud-2{ bottom:30%; left:22%; width:56px; animation:floatY 10s ease-in-out infinite 2s; }
+  .bg-icon.signal{ bottom:10%; left:8%; width:56px; animation:floatY 6s ease-in-out infinite 1s; }
+  .bg-icon.signal-2{ top:38%; right:4%; width:44px; animation:floatY 7.5s ease-in-out infinite .3s; }
+  .bg-icon.gear{ bottom:8%; right:9%; width:54px; animation:spinSlow 22s linear infinite; }
+  .bg-icon.gear-2{ top:55%; left:6%; width:38px; animation:spinSlow 18s linear infinite reverse; }
+  .bg-icon.node{ top:46%; left:48%; width:14px; opacity:.4; animation:pulseNode 3s ease-in-out infinite; }
+  .bg-icon.node-2{ top:22%; left:60%; width:10px; opacity:.35; animation:pulseNode 4s ease-in-out infinite 1s; }
+  .bg-icon.node-3{ bottom:20%; right:35%; width:10px; opacity:.35; animation:pulseNode 3.5s ease-in-out infinite .6s; }
+
+  @keyframes floatY{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-14px); } }
+  @keyframes spinSlow{ to{ transform:rotate(360deg); } }
+  @keyframes dashFlow{ to{ stroke-dashoffset:-400; } }
+  @keyframes pulseNode{ 0%,100%{ opacity:.2; } 50%{ opacity:.6; } }
+
+  .crop{ position:absolute; width:22px; height:22px; border:1px solid var(--accent-dim); z-index:1; }
   .crop.tl{ top:0; left:0; border-right:none; border-bottom:none; }
   .crop.tr{ top:0; right:0; border-left:none; border-bottom:none; }
   .crop.bl{ bottom:0; left:0; border-right:none; border-top:none; }
   .crop.br{ bottom:0; right:0; border-left:none; border-top:none; }
 
-  .rev{ font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.05em; margin-bottom:22px; }
+  .rev{ position:relative; z-index:1; font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.05em; margin-bottom:22px; }
   .rev span{ color:var(--accent); }
 
-  .hero-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:52px; align-items:start; }
+  .hero-grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.3fr 1fr; gap:52px; align-items:start; }
   @media (max-width:820px){ .hero-grid{ grid-template-columns:1fr; } }
 
   h1.hero-name{ font-family:var(--display); font-weight:700; font-size:clamp(34px,5vw,54px); line-height:1.08; letter-spacing:-0.01em; }
@@ -177,10 +213,106 @@
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     .pulse{ animation:none; }
+    .bg-icon, .global-bg .circuit path{ animation:none !important; }
   }
 </style>
 </head>
 <body>
+
+<div class="global-bg" aria-hidden="true">
+  <svg class="circuit" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <path d="M0,120 L200,120 L240,160 L440,160 L480,120 L720,120"/>
+    <path d="M1200,90 L960,90 L920,130 L680,130"/>
+    <path d="M120,500 L120,340 L180,300 L400,300"/>
+    <path d="M1080,480 L1080,340 L1020,300 L800,300"/>
+    <path d="M0,650 L160,650 L200,610 L440,610"/>
+    <path d="M1200,700 L1000,700 L960,660 L740,660"/>
+    <circle cx="240" cy="160" r="4"/>
+    <circle cx="480" cy="120" r="4"/>
+    <circle cx="920" cy="130" r="4"/>
+    <circle cx="180" cy="300" r="4"/>
+    <circle cx="1020" cy="300" r="4"/>
+    <circle cx="200" cy="610" r="4"/>
+    <circle cx="960" cy="660" r="4"/>
+  </svg>
+
+  <!-- robots -->
+  <svg class="bg-icon robot" viewBox="0 0 64 64">
+    <rect x="18" y="24" width="28" height="24" rx="4"/>
+    <circle cx="26" cy="34" r="2.5"/>
+    <circle cx="38" cy="34" r="2.5"/>
+    <line x1="32" y1="24" x2="32" y2="14"/>
+    <circle cx="32" cy="11" r="3"/>
+    <line x1="14" y1="30" x2="18" y2="30"/>
+    <line x1="46" y1="30" x2="50" y2="30"/>
+    <rect x="23" y="48" width="7" height="9" rx="1.5"/>
+    <rect x="34" y="48" width="7" height="9" rx="1.5"/>
+  </svg>
+  <svg class="bg-icon robot-2" viewBox="0 0 64 64">
+    <rect x="18" y="24" width="28" height="24" rx="4"/>
+    <circle cx="26" cy="34" r="2.5"/>
+    <circle cx="38" cy="34" r="2.5"/>
+    <line x1="32" y1="24" x2="32" y2="14"/>
+    <circle cx="32" cy="11" r="3"/>
+    <rect x="23" y="48" width="7" height="9" rx="1.5"/>
+    <rect x="34" y="48" width="7" height="9" rx="1.5"/>
+  </svg>
+
+  <!-- clouds -->
+  <svg class="bg-icon cloud cyan" viewBox="0 0 64 40">
+    <path d="M16 32 c-7 0-12-5-12-11 c0-6 5-10 11-10 c2-6 8-10 15-10 c8 0 14 5 15 12 c6 0 11 4 11 9 c0 6-5 10-11 10 z"/>
+  </svg>
+  <svg class="bg-icon cloud-2 cyan" viewBox="0 0 64 40">
+    <path d="M16 32 c-7 0-12-5-12-11 c0-6 5-10 11-10 c2-6 8-10 15-10 c8 0 14 5 15 12 c6 0 11 4 11 9 c0 6-5 10-11 10 z"/>
+  </svg>
+
+  <!-- wifi / signal -->
+  <svg class="bg-icon signal cyan" viewBox="0 0 40 32">
+    <path d="M4 18 a24 24 0 0 1 32 0"/>
+    <path d="M11 24 a14 14 0 0 1 18 0"/>
+    <circle cx="20" cy="29" r="2" fill="currentColor" stroke="none"/>
+  </svg>
+  <svg class="bg-icon signal-2 cyan" viewBox="0 0 40 32">
+    <path d="M4 18 a24 24 0 0 1 32 0"/>
+    <path d="M11 24 a14 14 0 0 1 18 0"/>
+    <circle cx="20" cy="29" r="2" fill="currentColor" stroke="none"/>
+  </svg>
+
+  <!-- gears -->
+  <svg class="bg-icon gear accent" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="10"/>
+    <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none"/>
+    <g stroke="currentColor">
+      <line x1="32" y1="6" x2="32" y2="16"/>
+      <line x1="32" y1="48" x2="32" y2="58"/>
+      <line x1="6" y1="32" x2="16" y2="32"/>
+      <line x1="48" y1="32" x2="58" y2="32"/>
+      <line x1="13" y1="13" x2="20" y2="20"/>
+      <line x1="44" y1="44" x2="51" y2="51"/>
+      <line x1="51" y1="13" x2="44" y2="20"/>
+      <line x1="20" y1="44" x2="13" y2="51"/>
+    </g>
+  </svg>
+  <svg class="bg-icon gear-2 accent" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="10"/>
+    <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none"/>
+    <g stroke="currentColor">
+      <line x1="32" y1="6" x2="32" y2="16"/>
+      <line x1="32" y1="48" x2="32" y2="58"/>
+      <line x1="6" y1="32" x2="16" y2="32"/>
+      <line x1="48" y1="32" x2="58" y2="32"/>
+      <line x1="13" y1="13" x2="20" y2="20"/>
+      <line x1="44" y1="44" x2="51" y2="51"/>
+      <line x1="51" y1="13" x2="44" y2="20"/>
+      <line x1="20" y1="44" x2="13" y2="51"/>
+    </g>
+  </svg>
+
+  <!-- data nodes -->
+  <svg class="bg-icon node cyan" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="currentColor" stroke="none"/></svg>
+  <svg class="bg-icon node-2 cyan" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="currentColor" stroke="none"/></svg>
+  <svg class="bg-icon node-3 cyan" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="currentColor" stroke="none"/></svg>
+</div>
 
 <header>
   <div class="nav">
@@ -244,10 +376,10 @@
       <div class="datasheet">
         <div class="datasheet-head">SPEC — QUICK FACTS</div>
         <div class="datasheet-row"><span>Degree</span><span>B.E, Robotics & AI</span></div>
-        <div class="datasheet-row"><span>Location</span><span>Bangalore, India</span></div>
         <div class="datasheet-row"><span>Graduated</span><span>2026</span></div>
+        <div class="datasheet-row"><span>Location</span><span>Bangalore, India</span></div>
         <div class="datasheet-row"><span>Core stack</span><span>Python · C/C++ · ROS</span></div>
-        <div class="datasheet-row"><span>Also</span><span>Docker · Jenkin · SQL</span></div>
+        <div class="datasheet-row"><span>Also</span><span>Docker · Jenkins · SQL</span></div>
         <div class="datasheet-row"><span>Looking for</span><span>Robotics / AI / DevOps</span></div>
       </div>
     </div>
